@@ -1,0 +1,35 @@
+# INPUT FILE FOR FDM DIFFUSION MODEL
+#--------------------------------------------------------------
+# Model Parameters
+#--------------------------------------------------------------
+outfilePrefix: simple   #[str] name to prefix all generated output files
+# TIME PARAMETERS
+dt: 10.              #[s] time discretization
+t_initial: 0.       #[s] (default 0)
+t_final: 36000.      #[s]
+
+# DOMAIN PARAMETERS
+L: 0.5              #[m] domain length 
+dx: 0.05             #[m] spatial discretization
+
+# TRANSPORT PARAMETERS
+D: 1.e-5             #[m^2/s] tracer diffusion coefficient (1.e-5)
+phi: 1.0            #[-] porosity (1.0 = no rock)
+# A: 0.003167         #[m^2] cross-sectional area
+# rho_b: 2.57e3       #[kg/m^3]
+
+# INITIAL CONDITIONS
+initial_conditions:
+    all: 0.0            #[Mass_tracer/Mass_fluid] inital concentration everywhere
+    left: 1.00             # initial concentration left  boundary (x=0.)
+    right: 0.00           # initial concentration right boundary (x=x_max.)
+    
+# BOUNDARY CONDITIONS
+# [[ bc_types Array ]]
+#     bc_type: 1 --> 1st-type (Dirichlet)
+#     bc_type: 2 --> 2nd-type (Neumann)
+bc_types: [ 1, 2 ]
+
+# [[ bc_values Array ]]
+bc_values: [ 1.00, 0. ] 
+
