@@ -50,7 +50,7 @@ def run_case(argv):
         elif opt == '-c':
             case = arg
 
-    print('(0) Running case ' + case)
+    print('(o) Running case ' + case)
 
     # Check environment variables
 

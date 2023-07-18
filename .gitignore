@@ -8,6 +8,7 @@ fd_backwardEuler
 # Temp files
 *.swo
 *.swp
+*.nfs*
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
