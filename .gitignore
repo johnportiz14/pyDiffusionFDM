@@ -2,6 +2,8 @@
 CP_optimize.py
 fdm
 fd_backwardEuler
+*.csv
+*.bak
 
 # Temp files
 *.swo

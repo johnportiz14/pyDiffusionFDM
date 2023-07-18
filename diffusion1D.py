@@ -23,6 +23,8 @@ from tools import sci_notation
 import matplotlib
 from matplotlib import tri
 import yaml
+#  from yaml import SafeDumper
+from yaml import SafeLoader
 import argparse
 from TDMAsolver import TDMAsolver
 #-----------------------------------------------------
@@ -40,12 +42,24 @@ plt.rcParams['axes.labelweight']=u'normal'
 plt.rcParams['agg.path.chunksize'] = 10000  #agg has a hardcoded limit on points
 #-----------------------------------------------------
 
+#  #The following allows blank values in *.yml inputFile (doesn't work yet)
+#  SafeLoader.add_constructor(
+    #  type(None),
+    #  lambda loader, value: loader.constructor_scalar(u'tag:yaml.org,2002:null', '')
+#  )
+#  SafeDumper.add_representer(
+    #  type(None),
+    #  lambda dumper, value: dumper.represent_scalar(u'tag:yaml.org,2002:null', '')
+#  )
+
+
 def read_inputs(inputFileName):
     '''
     Generic read of (YAML) input file.
     Parameters must have same names as fdm_model.'''
     with open(inputFileName,'r') as f:
         inp = yaml.safe_load(f)
+        #  inp = yaml.safe_load(f, default_flow_style=False)
     return inp
 
 def lookup_inputs(inputs_dict, key):
@@ -276,8 +290,7 @@ def diffusion_model(inputFileName):
 
     for it in np.arange(1,nt+1):
         time = it*dt
-        print(it)
-        print(time)
+
         #---- Update rhs vector (within time loop)----
         #---------------------------------------- 
         #       INTERIOR NODES                  #
@@ -379,35 +392,41 @@ if __name__=='__main__':
     cwd = os.getcwd()
     outputdir = join(cwd,'output')
 
-    #  #-------------------------------------------------- 
-    #  # Define args for user to choose which part(s) of this script to run 
-    #  #-------------------------------------------------- 
-    #  descr ='Run the ``optimize.py`` script.'
-    #  parser = argparse.ArgumentParser(description=descr)
-    #  parser.add_argument('-r', '--rockType', help='Rock type (ztuff, nztuff, sandstone)')
-    #  #  parser.add_argument('-i', '--inputFile', action='store_true', help='Name of YAML input file.')
-#  
-    #  args = parser.parse_args()
-    #  #  print(args)                      #DEBUG
-#  
-    #  if args.rockType:
-        #  #Read in all inputs
-        #  inputs = read_inputs(args.rockType)
-        #  rock_type = args.rockType
-        #  #  inputFile = 'inputFile_{}.yml'.format(args.rockType)
-        #  #  with open(inputFile, 'r') as f:
-            #  #  inputs = yaml.safe_load(f)
-#  
-    #  else:
-        #  print('Choose a rock type using arg -r...')
-    #  #-------------------------------------------------- 
+    #-------------------------------------------------- 
+    # Define args for user to choose which part(s) of this script to run 
+    #-------------------------------------------------- 
+    descr ='Run the ``diffusion1D.py`` script.'
+    parser = argparse.ArgumentParser(description=descr)
+    parser.add_argument('-i', '--inputFile', help='Path and name of inputFile.')
+    #  parser.add_argument('-i', '--inputFile', action='store_true', help='Name of YAML input file.')
+
+    args = parser.parse_args()
+    #  print(args)                      #DEBUG
+
+
+
+    #-------------------------------------------------- 
 
     #================================================== 
     #       RUN MODEL 
     #================================================== 
     # Specify Input file
-    inputFile = 'input/simple_inputFile.yml'
-    inputs    = read_inputs(inputFile)
+    # ... using -i commandline arg
+    if args.inputFile:
+        #Read in all inputs
+        print(args.inputFile)
+        #  inputFile = join('input',args.inputFile)
+        inputFile = args.inputFile
+        inputs = read_inputs(args.inputFile)
+        #  inputs = read_inputs(join('input',args.inputFile))
+    # ... or manually here (not recommended)
+    else:
+        print('Did not specify an inputFile using -i arg.')
+        #  inputFile = 'input/simple_inputFile.yml'
+        # Default input file name
+        inputFile = 'input/inputFile.yml'
+        inputs    = read_inputs(inputFile)
+
     # Run the Model
     df = diffusion_model(inputFile)
 
@@ -417,7 +436,7 @@ if __name__=='__main__':
     #================================================== 
 
     #----------------------------------------------
-    #  TIME SERIES
+    #  BREAKTHROUGH TIME SERIES
     #----------------------------------------------
     fig, ax1 = plt.subplots(1,figsize=(6,4),sharex=False)
     #-- [1] --
@@ -429,4 +448,6 @@ if __name__=='__main__':
     plt.savefig( join(outputdir, f'plot_{inputs["outfilePrefix"]}.pdf') )
     #  plt.savefig('output/test.pdf')
     plt.close('all')
+
+
 
