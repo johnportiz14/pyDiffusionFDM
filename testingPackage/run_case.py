@@ -22,6 +22,7 @@ import os
 from os.path import join
 import sys
 import getopt
+from glob import glob
 
 
 def run_case(argv):
@@ -93,6 +94,10 @@ def run_case(argv):
     if not os.path.exists( REPO+'/docs/Cases/' ):
          os.mkdir(REPO + '/docs/Cases/' + case)          # Make a location in the docs directory for this latex file
     os.system('cp input.tex ' + REPO + '/docs/Cases/' + case)   # Copy input.tex to that location
+    # Copy all figures also to that location
+    figList = glob(join('output', '*pdf'))
+    for fig in figList:
+        os.system('cp '+fig +' '+ REPO + '/docs/Cases/' + case)   # Copy input.tex to that location
 
     #  # Auto plotting
 #  
@@ -107,7 +112,7 @@ def run_case(argv):
     # Communicate results
     # -------------------------------------
 
-    # Retreive the results
+    # Retrieve the results
 
     g = open(CaseDir + '/TestResult_summary')          # compare.py wrote this file
     Result = g.readlines()[0].replace('\n','')         # read the entire file

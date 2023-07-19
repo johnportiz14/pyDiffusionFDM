@@ -4,24 +4,22 @@ Calculate D_e and K_d via optimization.
 '''
 import os,sys
 sys.path.append('/project/gas_seepage/jportiz/scripts')
-import logger
-#  from matk import matk,pest_io
+try: import logger
+except ModuleNotFoundError: pass
 from subprocess import call
 import numpy as np
-from scipy import arange, randn, exp
-#  import fpost
 from os.path import join
 from decimal import Decimal
 import pandas as pd
-from scipy.interpolate import interp1d
-from sklearn.metrics import mean_squared_error
 import matplotlib.pyplot as plt
-from scipy.optimize import minimize
-from scipy.optimize import differential_evolution
+#  from sklearn.metrics import mean_squared_error
+#  from scipy.interpolate import interp1d
+#  from scipy.optimize import minimize
+#  from scipy.optimize import differential_evolution
+#  from tools import sci_notation
 import math
-from tools import sci_notation
 import matplotlib
-from matplotlib import tri
+#  from matplotlib import tri
 import yaml
 #  from yaml import SafeDumper
 from yaml import SafeLoader

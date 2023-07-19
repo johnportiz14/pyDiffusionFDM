@@ -83,10 +83,20 @@ def run_all(argv):
 
     f = open(REPO + '/docs/AllTests.tex','w')
 
+    # LaTex Intro Stuff
+    print('\\documentclass{article}', file=f)
+    print('\\usepackage{graphicx}', file=f)
+    print('\\title{pyDiffusionFDM Regression Tests}', file=f)
+    print('\\author{John P. Ortiz}', file=f)
+    print('\\date{\today}', file=f)
+    print('\\begin{document}', file=f)
+    print('\\maketitle', file=f)
+
     for C in cases:
         print('(o) Executing test: ' + C)
         os.system(RunScript + ' -c ' + C )
 
+        # Include each Case as a section
         print('\\section{' + C.replace('_','\_') + '}', file=f)  # Latex syntax test_01 --> test\_01 in latex
 
         print('\\input{Cases/' + C + '/input.tex}', file=f)
