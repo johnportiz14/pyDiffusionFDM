@@ -86,6 +86,10 @@ def run_all(argv):
     # LaTex Intro Stuff
     print('\\documentclass{article}', file=f)
     print('\\usepackage{graphicx}', file=f)
+    print('\\usepackage[dvipsnames]{xcolor}', file=f)
+    print('\\usepackage{fancyvrb}', file=f)
+    print('\\usepackage{verbatim}', file=f)
+    print('', file=f)
     print('\\title{pyDiffusionFDM Regression Tests}', file=f)
     print('\\author{John P. Ortiz}', file=f)
     print('\\date{\\today}', file=f)

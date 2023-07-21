@@ -95,6 +95,7 @@ def run_case(argv):
          os.mkdir(REPO + '/docs/Cases/' + case)          # Make a location in the docs directory for this latex file
     #  os.system('cp page.tex ' + REPO + '/docs/Cases/' + case)   # Copy page.tex to docs dir 
     shutil.copy('page.tex', join(REPO + '/docs/Cases/' + case))   # Copy page.tex to docs dir 
+    shutil.copy(join('input','inputFile.yml'), join(REPO + '/docs/Cases/' + case))   # Copy inputFile to docs dir 
     # Copy all figures also to that location
     figList = glob(join('output', '*pdf'))
     for fig in figList:
@@ -112,19 +113,13 @@ def run_case(argv):
     # -------------------------------------
     # Communicate results
     # -------------------------------------
-
     # Retrieve the results
-
     g = open(CaseDir + '/TestResult_summary')          # compare.py wrote this file
     Result = g.readlines()[0].replace('\n','')         # read the entire file
     g.close()
-
     # Report to screen:
-
     print("Case " + case + ": " + Result)
-
     # Append result to the global TestResult_summary file
-
     with open('TestResult_summary','a') as file: file.write('Case ' + case + ': ' + Result + '\n')
 
 

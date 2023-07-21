@@ -25,13 +25,13 @@ For the purposes of this document, the root dir will hereafter be referred to as
 
 2. Run the command:
     
-    > python run_all.py
+    python run_all.py
 
 3. Result will print to screen, as well as to the file: ``TestResult_summary``.
 
 Individual regression tests can be run using the command:
 
-    > python run_case.py -c <Case>
+    python run_case.py -c <Case>
 
 where ``<Case>`` is a valid case name.
 
