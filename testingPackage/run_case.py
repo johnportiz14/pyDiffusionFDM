@@ -23,7 +23,7 @@ from os.path import join
 import sys
 import getopt
 from glob import glob
-
+import shutil
 
 def run_case(argv):
 
@@ -93,11 +93,12 @@ def run_case(argv):
     #  os.system('mkdir ' + REPO + '/docs/Cases/' + case)          # Make a location in the docs directory for this latex file
     if not os.path.exists( REPO+'/docs/Cases/' ):
          os.mkdir(REPO + '/docs/Cases/' + case)          # Make a location in the docs directory for this latex file
-    os.system('cp input.tex ' + REPO + '/docs/Cases/' + case)   # Copy input.tex to that location
+    #  os.system('cp page.tex ' + REPO + '/docs/Cases/' + case)   # Copy page.tex to docs dir 
+    shutil.copy('page.tex', join(REPO + '/docs/Cases/' + case))   # Copy page.tex to docs dir 
     # Copy all figures also to that location
     figList = glob(join('output', '*pdf'))
     for fig in figList:
-        os.system('cp '+fig +' '+ REPO + '/docs/Cases/' + case)   # Copy input.tex to that location
+        os.system('cp '+fig +' '+ REPO + '/docs/Cases/' + case)   # Copy *.pdfs to that location
 
     #  # Auto plotting
 #  

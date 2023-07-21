@@ -4,11 +4,18 @@ fdm
 fd_backwardEuler
 *.csv
 *.bak
+Cases/*
+docs/Cases/*
 
 # Temp files
 *.swo
 *.swp
 *.nfs*
+
+# LaTeX Files
+*.aux
+*.fls
+*.fdb_latexmk
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
