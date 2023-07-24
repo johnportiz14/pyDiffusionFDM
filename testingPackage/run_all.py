@@ -68,12 +68,9 @@ def run_all(argv):
 
     cases = []
     cases.append('diffusionCoupon')
+    cases.append('transientDirichlet')
     #  cases.append('test_01')
-    #  cases.append('test_02')
     #  cases.append('gradBC_01')
-    #  cases.append('multiPhys_01')
-    #  cases.append('mms_01')
-    #  cases.append('mms_02')
 
     # ----------------------------------------
     # Loop over tests, executing each one
@@ -90,7 +87,7 @@ def run_all(argv):
     print('\\usepackage{fancyvrb}', file=f)
     print('\\usepackage{verbatim}', file=f)
     print('', file=f)
-    print('\\title{pyDiffusionFDM Regression Tests}', file=f)
+    print('\\title{pyDiffusionFDM Testing}', file=f)
     print('\\author{John P. Ortiz}', file=f)
     print('\\date{\\today}', file=f)
     print('\\begin{document}', file=f)

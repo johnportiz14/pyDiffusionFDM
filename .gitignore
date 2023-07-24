@@ -4,7 +4,11 @@ fdm
 fd_backwardEuler
 *.csv
 *.bak
-Cases/*
+# Cases/*
+Cases/*/output/*.pdf
+Cases/*/output/*.csv
+Cases/*/output/*_ana
+# Cases/**/*.
 docs/Cases/*
 
 # Temp files

@@ -13,7 +13,7 @@ from decimal import Decimal
 import pandas as pd
 import matplotlib.pyplot as plt
 #  from sklearn.metrics import mean_squared_error
-#  from scipy.interpolate import interp1d
+from scipy.interpolate import interp1d
 #  from scipy.optimize import minimize
 #  from scipy.optimize import differential_evolution
 #  from tools import sci_notation
@@ -25,6 +25,8 @@ import yaml
 from yaml import SafeLoader
 import argparse
 from TDMAsolver import TDMAsolver
+import warnings
+warnings.filterwarnings( "ignore", module = "matplotlib\..*" )
 #-----------------------------------------------------
 #MATPLOTLIBRC PLOTTING PARAMETERS
 # Load up sansmath so that math --> helvetica font
@@ -70,6 +72,10 @@ def lookup_inputs(inputs_dict, key):
             value=inputs_dict[k]
     return value
 
+#  def from_file(fileName):
+    #  df = pd.read_csv(filename)
+    #  return df
+
 
 def diffusion_model(inputFileName):
     '''
@@ -102,9 +108,22 @@ def diffusion_model(inputFileName):
     #-------------------------------------------------- 
     ic_values = inp['initial_conditions']
     ic_all    = ic_values['all']
-
     bc_types  = inp['bc_types']
     bc_values = inp['bc_values']
+    # Does bc_values use a file rather than a value?
+    if any(isinstance(b,str) for b in bc_values):
+        # If yes, create a time interpolation object
+        for i,b in enumerate(bc_values):
+            if type(b)==str:
+                # Read in file to DataFrame
+                df = pd.read_csv(b)
+                # Create an interpolation object
+                #  f0 = interp1d(df['time'], df.iloc[:,-1], fill_value='extrapolate')
+                f0 = interp1d(df['time'], df.iloc[:,-1])
+                # Replace interp object in dictionary
+                bc_values[i] = f0
+
+
     num_bcs   = len(bc_types)
 
 
@@ -299,22 +318,34 @@ def diffusion_model(inputFileName):
         #---------------------------------------- 
         # (1st-Type BC: Dirichlet) --> c3=1, c4=0, f_1=specified value of u_1 
         if bc_types[0]==1:
-            f_1 = bc_values[0]  #specified value
+            if type(bc_values[0]) is float:
+                f_1 = bc_values[0]  #specified value
+            else:
+                f_1 = float(bc_values[0](time)) #interpolate from file
             rhs[0] = f_1
         # (2nd-Type BC: Neumann)   --> c3=0, c4=1, f_1=specified value of gradient
         elif bc_types[0]==2:
-            f_1 = bc_values[0]
+            if type(bc_[0]) is float:
+                f_1 = bc_values[0]  #specified value
+            else:
+                f_1 = float(bc_values[0](time)) #interpolate from file
             rhs[0] = f_1
         #---------------------------------------- 
         #       RIGHT BOUNDARY (x=J)            #
         #---------------------------------------- 
         # (1st-Type BC: Dirichlet) --> c3=1, c4=0, f_1=specified value of u_1 
         if bc_types[-1]==1:
-            f_1 = bc_values[-1]  #specified value
+            if type(bc_values[-1]) is float:
+                f_1 = bc_values[-1]  #specified value
+            else:
+                f_1 = float(bc_values[-1](time)) #interpolate from file
             rhs[-1] = f_1
         # (2nd-Type BC: Neumann)   --> c3=0, c4=1, f_1=specified value of gradient
         elif bc_types[-1]==2:
-            f_1 = bc_values[-1]
+            if type(bc_values[-1]) is float:
+                f_1 = bc_values[-1]  #specified value
+            else:
+                f_1 = float(bc_values[-1](time)) #interpolate from file
             rhs[-1] = f_1
         #  #---- Time-varying spike chamber concentration
         #  #  u0 = m*(it*dt) + C_init # time-varying Dirichlet on Left BC
