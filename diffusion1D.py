@@ -110,7 +110,7 @@ def diffusion_model(inputFileName):
     ic_all    = ic_values['all']
     bc_types  = inp['bc_types']
     bc_values = inp['bc_values']
-    # Does bc_values use a file rather than a value?
+    # Does bc_values use a file rather than a value? (i.e., a time series)
     if any(isinstance(b,str) for b in bc_values):
         # If yes, create a time interpolation object
         for i,b in enumerate(bc_values):
@@ -122,7 +122,6 @@ def diffusion_model(inputFileName):
                 f0 = interp1d(df['time'], df.iloc[:,-1])
                 # Replace interp object in dictionary
                 bc_values[i] = f0
-
 
     num_bcs   = len(bc_types)
 
@@ -265,19 +264,6 @@ def diffusion_model(inputFileName):
     #  c[0] = 0. #first type B.C. at LEFT
     #  c[-1] = 0.0 #(not in matrix) at RIGHT
 
-
-
-    #  #-------------------------------------------------- 
-    #  #  Inlet B.C.  (Transient Dirichlet)
-    #  #-------------------------------------------------- 
-    #  # Interpolate experimental concentrations to time series 
-    #  f0 = interp1d(x_obs_inlet*3600., y_obs_inlet,fill_value='extrapolate')  #convert time to seconds
-    #  y_obs_inlet_i = f0(t)  #use this as left B.C.
-    #  # Make any values > 1.0 equal 1.0
-    #  y_obs_inlet_i[y_obs_inlet_i>1.0] = 1.0
-    #  u[0] = y_obs_inlet_i[0]  # Set the initial conc on left B.C.
-    #  #  # Save
-    #  #  uhist_L[0] = u[0]
 
 
     #-------------------------------------------------- 
