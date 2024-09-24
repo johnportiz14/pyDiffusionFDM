@@ -41,7 +41,7 @@ def ana_finite(C_0,x,times,L,D,n=100):
 
     # Get conc at single node for all times
     for tt in times:
-        uanal = 1 - 4 * np.sum(np.sin((2 * nn + 1) * np.pi * x / (2 * L)) *
+        uanal = C_0 - 4 * np.sum(np.sin((2 * nn + 1) * np.pi * x / (2 * L)) *
                                   np.exp(-(2 * nn + 1) ** 2 * np.pi ** 2 * D * tt / (4 * L ** 2)) /
                                   ((2 * nn + 1) * np.pi))
         C_profile.append(uanal)

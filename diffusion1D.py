@@ -27,20 +27,20 @@ import argparse
 from TDMAsolver import TDMAsolver
 import warnings
 warnings.filterwarnings( "ignore", module = "matplotlib\..*" )
-#-----------------------------------------------------
-#MATPLOTLIBRC PLOTTING PARAMETERS
-# Load up sansmath so that math --> helvetica font
-# Also need to tell tex to turn on sansmath package
-plt.rcParams['text.latex.preamble'] = [
-    r'\usepackage{helvet}',
-    r'\usepackage{sansmath}',
-    r'\sansmath']
-plt.rcParams['font.family'] = 'sans-serif'
-plt.rcParams['font.sans-serif'] = 'Helvetica'
-#  plt.rcParams['font.sans-serif'] = 'Arial'
-plt.rcParams['axes.labelweight']=u'normal'
-plt.rcParams['agg.path.chunksize'] = 10000  #agg has a hardcoded limit on points
-#-----------------------------------------------------
+#  #-----------------------------------------------------
+#  #MATPLOTLIBRC PLOTTING PARAMETERS
+#  # Load up sansmath so that math --> helvetica font
+#  # Also need to tell tex to turn on sansmath package
+#  plt.rcParams['text.latex.preamble'] = [
+    #  r'\usepackage{helvet}',
+    #  r'\usepackage{sansmath}',
+    #  r'\sansmath']
+#  plt.rcParams['font.family'] = 'sans-serif'
+#  plt.rcParams['font.sans-serif'] = 'Helvetica'
+#  #  plt.rcParams['font.sans-serif'] = 'Arial'
+#  plt.rcParams['axes.labelweight']=u'normal'
+#  plt.rcParams['agg.path.chunksize'] = 10000  #agg has a hardcoded limit on points
+#  #-----------------------------------------------------
 
 #  #The following allows blank values in *.yml inputFile (doesn't work yet)
 #  SafeLoader.add_constructor(

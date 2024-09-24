@@ -1,8 +1,60 @@
-This test simulates a 1-D diffusion coupon experiment. 
 
-Dirichlet B.C. at x=0
 
-Neumann (no-flux) B.C. at x=L.
+Consider a situation where the boundary $x=0$ is held at a constant concentration
+(for instance one face of a soil or rock sample is exposed to a
+tank with fixed concentration of solute). This is a commonly used experimental
+method (sometimes referred to as ``diffusion coupon experiment'') for determining
+diffusivities in rocks and soils. Suppose the concentration of solute in the
+sample is initially zero, and assuming that the sample extends for a
+``relatively long'' distance, so that it is practically ``semi-infinite`` along $x$
+(see \autoref{fig:coupon-schematic}).
+
+\begin{figure}[hbt!]
+\center
+\includegraphics[width=0.7\textwidth]{{Cases/diffusionCoupon/coupon-schematic}.png}
+\caption{Schematic of the semi-infinite ``diffusion coupon'' experiment.``}
+\label{fig:coupon-schematic}
+\end{figure}
+
+
+The diffusion equation and boundary conditions are:
+
+\begin{equation}
+    \frac{\partial C}{\partial t} - D \frac{\partial^2 C}{\partial x^2} = 0
+    \label{eqn:gov-coupon}
+\end{equation}
+In a true ``diffusion coupon'', the boundary conditions are:
+\begin{equation}
+C(0,t) = C_0; C(x,t) \xrightarrow[]{} 0 \textrm{ as } x \xrightarrow[]{} \infty
+    % C(0,t) = C_0; C(x,t) \xrightarrow 0 \textrm{ as } x \xrightarrow \infty
+\end{equation}
+which is generally a good approximation as long as the length of the column is
+sufficiently greater than the characteristic length of diffusion.
+
+If this is not the case and a finite domain is needed, the following boundary
+conditions can be used in the model:
+\begin{equation}
+    C(0,t) = C_0; -D \frac{\partial C}{\partial x} = 0 \textrm{ on } x=L
+\end{equation}
+such that there is a no-flux (2nd-type, Neumann) BC on the boundary $x=L$.
+This can be modeled as a finite domain using a summation of fundamental
+diffusion equation solutions using image sources to represent the no-flux BC on
+the boundary. We therefore compare the pyDiffusionFDM model to results from
+both the semi-infinite domain and the finite domain analytical solutions. 
+
+\subsection{Analytical Solutions}
+
+For the semi-infinite domain case, the analytical solution is as follows:
+\begin{equation}
+    C(x,t) = C_0 \textrm{erfc}\left( \frac{x}{2 \sqrt{Dt}} \right)
+\end{equation}
+
+For the finite domain case, the analytical solution can be constructed as follows:
+\begin{equation}
+C(x,t) =  C_0 - 4 \sum^\infty_{k=1} \left[ \sin \left( 2k+1) \pi \frac{x}{2L} \right) \cdot \exp{ - \frac{(2k+1)^2 \pi^2 Dt}{4L^2 (2k+1) \pi} } \right]
+\end{equation}
+
+
 
 \subsection{Input File}
 \verbatiminput{Cases/diffusionCoupon/inputFile.yml}

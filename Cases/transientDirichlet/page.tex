@@ -1,10 +1,15 @@
-This test simulates a 1-D diffusion coupon experiment with a time-varying
-Dirichlet Boundary condition on x=0. 
+This test simulates the 1-D diffusion coupon experiment, but with an arbitrary
+time-varying Dirichlet boundary condition on $x=0$. The file for the BC is
+shown in \autoref{sec:transient-bcFile}. 
 
-Neumann (no-flux) B.C. at x=L.
 
 \subsection{Input File}
 \verbatiminput{Cases/transientDirichlet/inputFile.yml}
+
+\subsection{BC File}
+\label{sec:transient-bcFile}
+\verbatiminput{../Cases/transientDirichlet/inletDirichletBC.csv}
+
 
 \subsection{Results}
 
@@ -12,6 +17,7 @@ Neumann (no-flux) B.C. at x=L.
 \begin{figure}[hbt!]
 \center
 \includegraphics[width=0.7\textwidth]{{Cases/transientDirichlet/compare_plot_}.pdf}
-\caption{Plot.}
+\caption{Comparison of simulated values with the transient Dirichlet BC plotted
+for reference.}
 \end{figure}
 

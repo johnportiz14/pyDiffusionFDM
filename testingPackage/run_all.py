@@ -83,9 +83,11 @@ def run_all(argv):
     # LaTex Intro Stuff
     print('\\documentclass{article}', file=f)
     print('\\usepackage{graphicx}', file=f)
+    print('\\usepackage{hyperref}', file=f)
     print('\\usepackage[dvipsnames]{xcolor}', file=f)
     print('\\usepackage{fancyvrb}', file=f)
     print('\\usepackage{verbatim}', file=f)
+    print('\\usepackage{amsmath}', file=f)
     print('', file=f)
     print('\\title{pyDiffusionFDM Testing}', file=f)
     print('\\author{John P. Ortiz}', file=f)
@@ -100,6 +102,8 @@ def run_all(argv):
         print('\\section{' + C.replace('_','\_') + '}', file=f)  # Latex syntax test_01 --> test\_01 in latex
         print('\\input{Cases/' + C + '/page.tex}', file=f)
         #  print('\\input{Cases/' + C + '/input.tex}', file=f)
+        #---- Page break between sections
+        print('\\clearpage', file=f)
 
     print('\\end{document}', file=f)
 
