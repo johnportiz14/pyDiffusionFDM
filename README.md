@@ -2,6 +2,14 @@
 
 A collection of simple 1D tracer diffusion/heat conduction models written in Python.
 
+Citation
+--------
+
+[![DOI](https://)
+
+Full model description can be found in: <>
+
+
 ## Usage
 
 Input files can be created and located in the 
