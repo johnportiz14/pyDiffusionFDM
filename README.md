@@ -5,7 +5,8 @@ A collection of simple 1D tracer diffusion/heat conduction models written in Pyt
 Citation
 --------
 
-[![DOI](https://)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.15428200.svg)](https://doi.org/10.5281/zenodo.15428200)
+
 
 Full model description can be found in: <>
 
