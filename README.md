@@ -5,7 +5,7 @@ A collection of simple 1D tracer diffusion/heat conduction models written in Pyt
 Citation
 --------
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.15428200.svg)](https://doi.org/10.5281/zenodo.15428200)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.15428199.svg)](https://doi.org/10.5281/zenodo.15428199)
 
 
 Full model description can be found in: <>
@@ -44,4 +44,12 @@ Individual regression tests can be run using the command:
 
 where ``<Case>`` is a valid case name.
 
+
+## Examples
+
+Example use cases for various problems or articles that use pyDiffusionFDM. 
+
+Individual examples can be run by navigating to a given ``Examples/`` subdirectory and using the command:
+
+    python diffusion1D.py -i input/inputFile.yml
 
