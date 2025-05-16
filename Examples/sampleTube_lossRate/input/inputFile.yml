@@ -1,0 +1,44 @@
+# INPUT FILE FOR FDM DIFFUSION MODEL
+#--------------------------------------------------------------
+# Model Parameters
+#--------------------------------------------------------------
+outfilePrefix: ''   #[str] name to prefix all generated output files
+# TIME PARAMETERS
+dt: 1.e-1 #1.e-2 #1.e-3 #1. #1.e-3 #0.0001              #[s] time discretization
+t_initial: 0.       #[s] (default 0)
+t_final:   18000. # 3600.      #[s]
+
+# DOMAIN PARAMETERS
+L:  0.06             #[m] domain length 
+dx: 0.0006           #[m] spatial discretization
+r:  0.0065           #[m] radius of core
+
+# TRANSPORT PARAMETERS
+D: []                #[m^2/s] hydraulic/pressure diffusivity 
+# D: [perm,mu,phi,beta]  # signals calculation using listed params
+phi: []             #[-] porosity (1.0 = no rock)
+# perm: 1.e-14 #[m2] permeability
+# mu: 49.87e-6 #[Pa.s] viscosity of air (@2000F)
+# beta: 1.e-9 #[1/Pa] ~Incompressible Air 
+M_fail_thresh: 0.1  # sample fails when less than __% of original mass remains 
+
+
+# INITIAL CONDITIONS
+initial_conditions:
+    all:  1.00 #0.0            #[Mass_tracer/Mass_fluid] inital concentration everywhere
+    left: 0.00             # initial pressure left  boundary (x=0.)
+    # left: 1.00             # initial pressure left  boundary (x=0.)
+    right: 1.00           # initial pressure right boundary (x=x_max.)
+    
+# BOUNDARY CONDITIONS
+# [[ bc_types Array ]]
+#     bc_type: 1 --> 1st-type (Dirichlet)
+#     bc_type: 2 --> 2nd-type (Neumann)
+# bc_types: [ 2, 1 ]
+bc_types: [ 1, 2 ]
+
+# [[ bc_values Array ]]
+bc_values: [ 0., 0. ]   # (right=zero conc; right = zero-flux)
+# bc_values: [ 'inletDirichletPressureBC.csv', 0. ] 
+# bc_values: [ 1034214000.0, 0. ] 
+

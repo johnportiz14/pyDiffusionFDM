@@ -11,6 +11,10 @@ Cases/*/output/*_ana
 # Cases/**/*.
 docs/Cases/*
 
+# Examples/*
+Examples/*/output
+
+
 # Temp files
 *.swo
 *.swp
