@@ -2,6 +2,10 @@
 
 A collection of simple 1D tracer diffusion/heat conduction models written in Python.
 
+Uses a Tri-diagonal Maxrix Algortithm (a.k.a., a Thomas algorithm) to solve the sparse matrix. Thomas algorithm is used from [ @cbellei
+cbellei/TDMAsolver.py
+](https://gist.github.com/cbellei/8ab3ab8551b8dfc8b081c518ccd9ada9) under a GNU General Public License. 
+
 Citation
 --------
 
