@@ -13,6 +13,7 @@ docs/Cases/*
 
 # Examples/*
 Examples/*/output
+Examples/output.log
 
 
 # Temp files
