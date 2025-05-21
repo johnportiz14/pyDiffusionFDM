@@ -6,6 +6,9 @@ Uses a Tri-diagonal Maxrix Algortithm (a.k.a., a Thomas algorithm) to solve the 
 cbellei/TDMAsolver.py
 ](https://gist.github.com/cbellei/8ab3ab8551b8dfc8b081c518ccd9ada9) under a GNU General Public License. 
 
+This repository documents my efforts to use the existing open-source Thomas algorithm (implemented as above) within a simple wrapper to solve 1-D mass diffusion/heat conduction problems. The scheme is backward-Euler finite-difference method that is implicit in time. 
+
+
 Citation
 --------
 
